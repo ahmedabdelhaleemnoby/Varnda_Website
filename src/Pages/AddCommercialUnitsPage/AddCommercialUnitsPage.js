@@ -33,6 +33,7 @@ import AlertMessage from "../../Components/Alert/Alert.js";
 import { useNavigate } from "react-router-dom";
 import AlertArError from "../../Components/Alert/AlertArError.js";
 import { Autocomplete, TextField } from "@mui/joy";
+import ArticleEditor from "../../Components/Editor/Editor.js";
 const AddCommercialUnitsPage = () => {
   const token = Cookies.get("token");
   const [load1, setLoad1] = useState(false);
@@ -548,14 +549,20 @@ const AddCommercialUnitsPage = () => {
                         <Form.Label className="required">
                           أضف تفاصيل العقار
                         </Form.Label>
-                        <Form.Control
+                        <ArticleEditor
+    value={formData.details_ar}
+    setArticle_body={(content) =>
+      setFormData({ ...formData, details_ar: content })
+    }
+  />
+                        {/* <Form.Control
                           as="textarea"
                           rows={4}
                           name="details_ar"
                           value={formData.details_ar}
                           onChange={handleChange}
                           required
-                        />
+                        /> */}
                       </Form.Group>
                       <Row>
                         <Col xs={12} md={6}>

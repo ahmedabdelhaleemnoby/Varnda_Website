@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom"; //
 import DeleteImage from "../../../Components/DeleteImage/DeleteImage.js";//
 import AlertArError from '../../../Components/Alert/AlertArError.js';
 import { Autocomplete, TextField } from '@mui/joy';
+import ArticleEditor from '../../../Components/Editor/Editor.js';
 
 const EditCommercialUnitsPage = () => {
 
@@ -581,14 +582,20 @@ const handleOptionSelect = (value) => {
                         <Form.Label className="required">
                           أضف تفاصيل العقار
                         </Form.Label>
-                        <Form.Control
+                        <ArticleEditor
+    value={formData.details_ar}
+    setArticle_body={(content) =>
+      setFormData({ ...formData, details_ar: content })
+    }
+  />
+                        {/* <Form.Control
                           as="textarea"
                           rows={4}
                           name="details_ar"
                           value={formData.details_ar}
                           onChange={handleChange}
                           required
-                        />
+                        /> */}
                       </Form.Group>
                       <Row>
                         <Col xs={12} md={6}>

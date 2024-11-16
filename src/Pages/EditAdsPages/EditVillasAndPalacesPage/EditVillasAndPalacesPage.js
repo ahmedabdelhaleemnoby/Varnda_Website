@@ -36,6 +36,7 @@ import DeleteImage from "../../../Components/DeleteImage/DeleteImage.js";
 import { useLocation } from "react-router-dom"; //
 import { Autocomplete, TextField } from "@mui/material";
 import AlertArError from "../../../Components/Alert/AlertArError.js";
+import ArticleEditor from "../../../Components/Editor/Editor.js";
 
 const EditVillasAndPalacesPage = () => {
   const location = useLocation(); //
@@ -605,14 +606,20 @@ const EditVillasAndPalacesPage = () => {
                         <Form.Label className="required">
                           أضف تفاصيل العقار
                         </Form.Label>
-                        <Form.Control
+                        <ArticleEditor
+    value={formData.details_ar}
+    setArticle_body={(content) =>
+      setFormData({ ...formData, details_ar: content })
+    }
+  />
+                        {/* <Form.Control
                           as="textarea"
                           rows={4}
                           name="details_ar"
                           value={formData.details_ar}
                           onChange={handleChange}
                           required
-                        />
+                        /> */}
                       </Form.Group>
                       <Row>
                         <Col xs={12} md={6}>
