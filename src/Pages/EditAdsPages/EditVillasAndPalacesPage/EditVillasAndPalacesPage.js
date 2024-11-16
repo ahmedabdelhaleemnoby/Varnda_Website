@@ -202,7 +202,7 @@ const EditVillasAndPalacesPage = () => {
       }
     };
     fetchGov();
-  }, []);
+  }, [token]);
   //City
   useEffect(() => {
     const fetchCity = async () => {
@@ -464,7 +464,7 @@ const EditVillasAndPalacesPage = () => {
         }
 
         // Post the data
-        const response = await api.post(
+        await api.post(
           `/updateAd/${formData.id}`,
           allFormData,
           {
@@ -474,6 +474,7 @@ const EditVillasAndPalacesPage = () => {
             },
           }
         );
+      
         setAlert({ msg: "تم تعديل الإعلان بنجاح", variant: 1 });
         window.scrollTo({ top: 0, behavior: "smooth" });
         setShow(true);

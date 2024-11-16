@@ -139,7 +139,7 @@ const AddCommercialUnitsPage = () => {
       }
     };
     fetchGov();
-  }, []);
+  }, [token]);
   //City
   useEffect(() => {
     const fetchCity = async () => {
@@ -159,7 +159,7 @@ const AddCommercialUnitsPage = () => {
       }
     };
     fetchCity();
-  }, [formData.governorate]);
+  }, [formData.governorate, governorates, token]);
 
   // Region
   useEffect(() => {
@@ -179,7 +179,7 @@ const AddCommercialUnitsPage = () => {
       }
     };
     fetchCity();
-  }, [formData.city]);
+  }, [formData.city, cities, token]);
   // Street
   useEffect(() => {
     const fetchStreet = async () => {
@@ -198,7 +198,7 @@ const AddCommercialUnitsPage = () => {
       }
     };
     fetchStreet();
-  }, [formData.region]);
+  }, [formData.region, regions, token]);
 
   // Compound
   useEffect(() => {
@@ -218,7 +218,7 @@ const AddCommercialUnitsPage = () => {
       }
     };
     fetchMolls();
-  }, [formData.governorate, formData.city]);
+  }, [formData.governorate, formData.city, cities, token]);
 
   const isValidPhone = (phoneNumber) => {
     const egPhone = /^(010|011|012|015)\d{8}$/;
@@ -400,7 +400,7 @@ const AddCommercialUnitsPage = () => {
       setLoad2(true);
       const token = Cookies.get("token");
       try {
-        const response = await api.post(
+         await api.post(
           "/makeAd",
           {
             ...formData2,

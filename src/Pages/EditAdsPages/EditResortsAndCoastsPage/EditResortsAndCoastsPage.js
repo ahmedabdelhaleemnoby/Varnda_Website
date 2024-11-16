@@ -177,7 +177,7 @@ if (Ad) fetchAd();
        }
      };
      fetchGov();
-   }, []);
+   }, [token]);
      //City
      useEffect(() => {
        const fetchCity = async () => {
@@ -442,7 +442,7 @@ if (Ad) fetchAd();
 
 
         // Post the data
-        const response = await api.post(
+         await api.post(
           `/updateAd/${formData.id}`,
           allFormData,
           {
@@ -452,6 +452,7 @@ if (Ad) fetchAd();
             },
           }
         );
+    
         setAlert({ msg: "تم تعديل الإعلان بنجاح", variant: 1 });
         window.scrollTo({ top: 0, behavior: "smooth" });
         setShow(true);

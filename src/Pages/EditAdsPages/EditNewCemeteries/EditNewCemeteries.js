@@ -188,7 +188,7 @@ const EditNewCemeteries = () => {
       }
     };
     fetchGov();
-  }, []);
+  }, [token]);
   //City
   useEffect(() => {
     const fetchCity = async () => {
@@ -420,7 +420,7 @@ const EditNewCemeteries = () => {
         }
 
         // Post the data
-        const response = await api.post(
+         await api.post(
           `/updateAd/${formData.id}`,
           allFormData,
           {

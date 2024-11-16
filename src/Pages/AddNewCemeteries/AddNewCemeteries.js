@@ -133,7 +133,7 @@ const AddNewCemeteries = () => {
       }
     };
     fetchGov();
-  }, []);
+  }, [token]);
   //City
   useEffect(() => {
     const fetchCity = async () => {
@@ -153,7 +153,7 @@ const AddNewCemeteries = () => {
       }
     };
     fetchCity();
-  }, [formData.governorate]);
+  }, [formData.governorate, governorates, token]);
 
   // Region
   useEffect(() => {
@@ -173,7 +173,7 @@ const AddNewCemeteries = () => {
       }
     };
     fetchCity();
-  }, [formData.city]);
+  }, [cities, formData.city, token]);
   // Street
   useEffect(() => {
     const fetchStreet = async () => {
@@ -192,7 +192,7 @@ const AddNewCemeteries = () => {
       }
     };
     fetchStreet();
-  }, [formData.region]);
+  }, [formData.region, regions, token]);
 
   const isValidPhone = (phoneNumber) => {
     const egPhone = /^(010|011|012|015)\d{8}$/;
@@ -370,7 +370,7 @@ const AddNewCemeteries = () => {
       setLoad2(true);
       const token = Cookies.get("token");
       try {
-        const response = await api.post(
+         await api.post(
           "/makeAd",
           {
             ...formData2,

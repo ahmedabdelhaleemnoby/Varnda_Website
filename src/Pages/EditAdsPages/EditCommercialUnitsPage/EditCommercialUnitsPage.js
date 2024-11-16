@@ -153,7 +153,7 @@ if (Ad) fetchAd();
    const[cityLoad,setCityLoad]=useState(false);
    const[regionLoad,setRegionLoad]=useState(false);
    const[streetLoad,setStreetLoad]=useState(false);
-   const[mollLoad,setMollLoad]=useState(false);
+   const[setMollLoad]=useState(false);
    //Governments
    useEffect(() => {
      const fetchGov = async () => {
@@ -173,7 +173,7 @@ if (Ad) fetchAd();
        }
      };
      fetchGov();
-   }, []);
+   }, [token]);
      //City
      useEffect(() => {
        const fetchCity = async () => {
@@ -222,7 +222,7 @@ if (Ad) fetchAd();
      if(formData.city){
        fetchRegion();
      }
-   }, [formData.city,token,cities]);
+  }, [formData.city, token, cities, setMollLoad]);
  
    // Street
    useEffect(() => {
@@ -274,7 +274,7 @@ if (Ad) fetchAd();
     if(formData.city){
       fetchMolls();
     }
-  }, [formData.city,token,cities]);
+  }, [formData.city, token, cities, setMollLoad]);
 
   const isValidPhone = (phoneNumber) => {
     const egPhone = /^(010|011|012|015)\d{8}$/;
@@ -438,7 +438,7 @@ if (Ad) fetchAd();
 
 
       // Post the data
-      const response = await api.post(
+     await api.post(
         `/updateAd/${formData.id}`,
         allFormData,
         {

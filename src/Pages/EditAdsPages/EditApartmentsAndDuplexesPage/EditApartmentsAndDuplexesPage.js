@@ -178,7 +178,7 @@ const [position, setPosition] = useState([30.044376903556085, 31.235749743857397
       }
     };
     fetchGov();
-  }, []);
+  }, [token]);
     //City
     useEffect(() => {
       const fetchCity = async () => {

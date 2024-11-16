@@ -213,7 +213,7 @@ const AddApartmentsAndDuplexesPage = () => {
       }
     };
     fetchStreet();
-  }, [formData.region]);
+  }, [formData.region, regions, token]);
 
   // Compound
   useEffect(() => {
@@ -236,7 +236,7 @@ const AddApartmentsAndDuplexesPage = () => {
       }
     };
     fetchCompound();
-  }, [formData.governorate, formData.city]);
+  }, [formData.governorate, formData.city, cities, token]);
 
   const isValidPhone = (phoneNumber) => {
     const egPhone = /^(010|011|012|015)\d{8}$/;
@@ -423,7 +423,7 @@ const AddApartmentsAndDuplexesPage = () => {
       setLoad2(true);
       const token = Cookies.get("token");
       try {
-        const response = await api.post(
+         await api.post(
           "/makeAd",
           {
             ...formData2,

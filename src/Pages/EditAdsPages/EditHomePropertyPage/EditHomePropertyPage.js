@@ -195,7 +195,7 @@ const EditHomePropertyPage = () => {
       }
     };
     fetchGov();
-  }, []);
+  }, [token]);
   //City
   useEffect(() => {
     const fetchCity = async () => {
@@ -456,7 +456,7 @@ const EditHomePropertyPage = () => {
         }
 
         // Post the data
-        const response = await api.post(
+         await api.post(
           `/updateAd/${formData.id}`,
           allFormData,
           {
