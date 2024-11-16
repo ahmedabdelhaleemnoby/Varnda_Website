@@ -1,0 +1,61 @@
+*{
+    /* font-family: 'Poppins', sans-serif; */
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+:root{
+    --body-color:"#ece9e9";
+    --text-color:#FFF;
+    --main-color: #186cc5eb;
+    --second-color: #39b2eb;
+
+}
+.sidebar{
+    width: 245px;
+    background-color: #f2f2f2;
+    padding: 10px 14px;
+}
+
+.nav-li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    flex-direction: column;
+    gap: 10px;
+
+
+    height: 80vh;
+    justify-content: space-evenly;
+}
+
+.sideDropdown button{
+    font-size: 20px;
+    width: 100%;
+}
+
+/*  */
+.sidebar .dropdown-menu{
+    width: 100%;
+    text-align: center;
+}
+.sidebar .dropdown-item{
+    border-bottom: 1px solid #808080ad;
+}
+/*  */
+
+.button-link {
+    color: white; /* اللون الأساسي للرابط */
+    text-decoration: none; /* إزالة التسطير */
+  }
+  
+  .button-link:hover {
+    color: #ccc; /* اللون عند المرور على الرابط */
+  }
+  
+  @media (max-width: 767px) {
+    .nav-li{
+        height: 100%;
+    }
+  }

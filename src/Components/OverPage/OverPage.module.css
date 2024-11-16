@@ -1,0 +1,17 @@
+.overlay{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background: #00000047;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.spinner{
+    width: 80px;
+    height: 80px;
+    border-color: #007bff;
+    border-left-color: transparent;
+}

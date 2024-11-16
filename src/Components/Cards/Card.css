@@ -1,0 +1,16 @@
+
+@media only screen and (max-width: 775px) {
+.small{
+    flex-wrap: wrap;
+}
+.imgCont{
+    width: 100% !important;
+}
+}
+
+.SocialContactCont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,75 @@
+.formInfo{
+  background-color: #eeeeee;
+  padding: 10px 7px;
+  margin: 15px 0 !important;
+  }
+  .formInfo .inputSelect{
+    width: 12%;
+  }
+  .formInfo .inputLocation{
+    width: 20%;
+  }
+  
+  .style-text h5{
+    text-align: right;
+    color: #0d6efd;
+    font-weight: 700;
+    padding: 8px 0;
+    border-bottom: 3px solid #0d6efd;
+  }
+  .style-text p,.headAreaSearch{
+    text-align: right;
+    color: #868585;
+    font-weight: 600;
+  }
+  .list-btn {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+    width: 300px;
+  }
+  
+  .list-btn li {
+    display: inline-block;
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid #0d6efd;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .list-btn li.selected {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+  
+  .list-btn li:hover {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+  
+  .menu-sale{
+    min-width: 250px !important;
+  }
+  
+  @media (max-width:1100px) {
+  
+    .formInfo{
+      background-color: #eeeeee;
+      padding: 10px 7px;
+      margin: 15px 0 !important;
+      display: flex;
+      }
+      .formInfo .inputSelect{
+        width: 100%;
+      margin: 10px 0;
+    }
+    .formInfo .inputLocation{
+        width: 100%;
+        margin: 10px 0;
+      }
+  }

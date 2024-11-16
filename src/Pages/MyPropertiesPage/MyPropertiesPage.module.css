@@ -1,0 +1,14 @@
+/* MyPropertiesPage.module.css */
+.container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fefefe;
+  border-radius: 8px;
+}
+
+.heading {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+

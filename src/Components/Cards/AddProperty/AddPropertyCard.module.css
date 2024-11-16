@@ -1,0 +1,23 @@
+
+.btnCol{
+    display: flex;
+    justify-content: center;
+}
+.btnDiv{
+    display: flex;
+    align-items: center;
+}
+.btn{
+    background-color: white;
+}
+.btn:hover{
+    background: #0d6efb;
+    color: white;
+    border: 2px solid white;
+}
+
+@media only screen and (max-width: 982px) {
+    .textDiv{
+        text-align: center;
+    }
+}

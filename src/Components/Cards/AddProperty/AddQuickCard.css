@@ -1,0 +1,16 @@
+.quick-card-container{
+    margin-bottom: 20px;
+    background: #faf0d3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.quick-card-btn{    background: #fbb337;
+    color: #ffffff;
+    width: 235px;
+
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+}

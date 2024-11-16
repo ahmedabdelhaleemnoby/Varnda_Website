@@ -1,0 +1,36 @@
+.imgCardLink{
+  border: 2px solid red;
+}
+.h4{
+  background-color: #ececec;
+  color: #0d6efd !important;
+  border-radius: 5px;
+  padding: 6px 5px;
+}
+.link-item{
+  text-decoration: none
+
+}
+
+
+.link-item .item{
+  border: none !important;
+  padding: 5px 0 !important;
+  font-size: 16px !important;
+}
+.link-item:hover .item{
+  text-decoration: underline;
+  color: #0d6efd !important;
+  font-weight: 600;
+}
+
+.card-img img{
+border-radius: 8px;
+}
+.card-data {
+  text-align: right !important;
+  width: 100%;
+}
+.card-data h2 span {
+  font-size: 20px;
+}

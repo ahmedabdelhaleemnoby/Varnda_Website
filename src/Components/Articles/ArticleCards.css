@@ -1,0 +1,38 @@
+ .truncate-text {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     display: block;
+     width: 100%;
+     height: 150px;
+     background-color: red;
+ }
+ .article-body{
+    color: #737373;
+    text-align: right;
+    
+ }
+ .article-body p,
+.article-body h1,
+.article-body h2,
+.article-body h3,
+.article-body h4,
+.article-body h5,
+.article-body h6,
+.article-body span {
+  font-size: 14px !important;
+  display: inline !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+.miniwords{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-clamp: 3; /* Number of lines before truncating */
+    max-height: 4.5em; /* Adjust the max height based on the number of lines */
+}
+
+.article-main-image{
+  height: 350px;
+}

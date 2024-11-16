@@ -1,0 +1,52 @@
+.page-link{
+  text-decoration: none;
+  font-weight: 600;
+  
+}
+
+.activelink{
+  color:#0d6efd !important;
+  scale:1.1;
+  border-bottom: 2px solid orange;
+}
+
+.linkCont{
+  width: 100%;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.link{
+  background: #d2deef;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.page-link:hover .link{
+color:#0d6efd !important;
+scale:1.1;
+border-bottom: 2px solid #0d6efd;
+}
+
+
+.title-page{
+  background-color: #0d6efd;
+  color: #fff !important;
+}
+
+
+@media (min-width:500px) and (max-width:900px){
+  .page-link{
+font-size: 14px ;
+    
+  }
+  .title-page{
+font-size: 18px;
+  }
+}
+@media (max-width:500px){
+  .property-category {
+    width: 95%;
+  }
+
+}
