@@ -42,7 +42,7 @@ const[data,setData]=useState("")
         }
       }
       getOneAds()
-  },[])
+  },[id])
   return (
     <>
       {data === "NotFound" ? (
