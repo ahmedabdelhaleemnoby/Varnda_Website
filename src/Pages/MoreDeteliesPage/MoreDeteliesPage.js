@@ -29,7 +29,7 @@ const[data,setData]=useState("")
               Authorization: `Bearer ${token}`,
             }
           })
-          const adsData=response.data.data
+          const adsData=response.data.data.ad
           setData(adsData)
         }catch(err){
           if(err.response.data.status===404){
