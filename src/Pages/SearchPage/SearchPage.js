@@ -33,6 +33,7 @@ usePageSEO({
     region: "",
     compound: "",
   });
+  
   return (
     <>
       <Header />

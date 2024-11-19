@@ -113,12 +113,19 @@ export default function PropertyCard({ properties = [], loading }) {
     );
   }
 
-  //اعرض جزء من الوصف
+
+  const stripHtml = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+  };
+
   const renderLimitedText = (text, charLimit) => {
-    if (text.length > charLimit) {
-      return `${text.substring(0, charLimit)}....`;
-    }
-    return text;
+    if (!text) return "الوصف غير متاح";
+    const strippedText = stripHtml(text);
+    return strippedText.length > charLimit
+      ? `${strippedText.substring(0, charLimit)}...`
+      : strippedText;
   };
 
   return (

@@ -29,7 +29,7 @@ const[data,setData]=useState("")
               Authorization: `Bearer ${token}`,
             }
           })
-          const adsData=response.data.data.ad
+          const adsData=response.data.data
           setData(adsData)
         }catch(err){
           if(err.response.data.status===404){
@@ -52,7 +52,7 @@ const[data,setData]=useState("")
       ) : (
         <>
           <Header />
-          {data.ad_type?<QuickCardDetails propertyDetails={data} />:<CardDetails propertyDetails={data} />}
+          {data.ad.ad_type?<QuickCardDetails propertyDetails={data.ad} relatedProperties={data.related_properties} />:<CardDetails propertyDetails={data.ad} relatedProperties={data.related_properties} />}
           <hr />
           <Container>
             <CommentCardAds ads_id={id} />
@@ -60,9 +60,9 @@ const[data,setData]=useState("")
             <AddCommentAds ads_id={id} />
           </Container>
           <Footer />
-          {data && (
+          {data.ad && (
             <Share
-              text={data.property["Arabic Name"]}
+              text={data.ad.property["Arabic Name"]}
               url={`http://varnda.com/property/${encodeURIComponent(id)}`}
             />
           )}

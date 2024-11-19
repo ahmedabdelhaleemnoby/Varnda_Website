@@ -4,3 +4,22 @@
     font-weight: bold;
     font-size: 20px;
 }
+.related-property-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: right; /* Since Arabic is right-to-left */
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .related-property-card h5 {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  .related-property-card p {
+    font-size: 14px;
+    color: #777;
+  }
+  

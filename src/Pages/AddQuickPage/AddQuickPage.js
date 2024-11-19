@@ -15,20 +15,19 @@ const AddQuickPage = () => {
   const token = Cookies.get("token");  
   const [showArError, setShowArError] = useState(false);
   const [alertArError, setAlertArError] = useState([]);
-  const [article_body, setArticle_body] = useState("");
   const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState({ msg: "", variant: 0 });
 
-  function extractImageUrls(htmlString) {
-    const urls = [];
-    const regex = /<img[^>]+src="([^">]+)"/g;
-    let match;
-    while ((match = regex.exec(htmlString)) !== null) {
-      urls.push(match[1]);
-    }
-    return urls;
-  }
+  // function extractImageUrls(htmlString) {
+  //   const urls = [];
+  //   const regex = /<img[^>]+src="([^">]+)"/g;
+  //   let match;
+  //   while ((match = regex.exec(htmlString)) !== null) {
+  //     urls.push(match[1]);
+  //   }
+  //   return urls;
+  // }
   const [formData, setFormData] = useState({
     user_id: Cookies.get("user_id"), //👍
     details_ar: "", //👍
@@ -131,12 +130,10 @@ const AddQuickPage = () => {
       const token = Cookies.get("token");
       try {
         setLoad(true);
-        const imageUrls = extractImageUrls(article_body);
         const allFormData = new FormData();
 
         // Append other form fields
         allFormData.append("user_id", formData.user_id);
-        allFormData.append("article_body", article_body);
         allFormData.append("details_ar", formData.details_ar);
         allFormData.append("governorate", formData.governorate);
         allFormData.append("city", formData.city);
@@ -162,7 +159,6 @@ const AddQuickPage = () => {
           await api.post(
             "/makeAd",
             {
-              image_paths: imageUrls,
               property_id: prop_id,
               phone: formData.phone,
               whats_phone: formData.phone,
@@ -232,7 +228,12 @@ const AddQuickPage = () => {
                     <Form.Label className="required">
                       أضف تفاصيل العقار
                     </Form.Label>
-                    <ArticleEditor setArticle_body={setArticle_body} />
+                    <ArticleEditor
+    value={formData.details_ar}
+    setArticle_body={(content) =>
+      setFormData({ ...formData, details_ar: content })
+    }
+  />
                     {/* <Form.Control
                       as="textarea"
                       rows={4}

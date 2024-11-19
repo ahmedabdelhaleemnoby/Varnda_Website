@@ -8,6 +8,7 @@ import L from "leaflet";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./CardDetails.css";
+import { Link } from "react-router-dom";
 import {
   faPhone,
   faEnvelope,
@@ -17,7 +18,7 @@ import VideoEmbed from "../../utility/VideoEmbed/VideoEmbed";
 import ShowFilterToUser from "../Filters/ShowFilterToUser";
 import usePageSEO from "../../hooks/usePageSEO";
 
-const CardDetails = ({ propertyDetails }) => {
+const CardDetails = ({ propertyDetails , relatedProperties}) => {
   const currentUrl = window.location.href;
   usePageSEO({
     title: propertyDetails.property["Arabic Name"],
@@ -58,7 +59,11 @@ const CardDetails = ({ propertyDetails }) => {
         propertyDetails.property["Sub Category"] === "توين هاوس"
     );
   }, [propertyDetails]);
-
+  function stripHtml(html) {
+    let temporalDivElement = document.createElement("div");
+    temporalDivElement.innerHTML = html;
+    return temporalDivElement.textContent || temporalDivElement.innerText || "";
+  }
   return (
     <>
       <div
@@ -158,7 +163,7 @@ const CardDetails = ({ propertyDetails }) => {
                       color: "rgb(72, 72, 72)",
                     }}
                   >
-                    {propertyDetails.property.details_ar}
+                    {stripHtml(propertyDetails.property.details_ar)}
                   </p>
                 </Row>
 
@@ -726,8 +731,50 @@ const CardDetails = ({ propertyDetails }) => {
                 </Col>
               </Col>
             </Col>
-
+                
             <Col md={12} lg={4} dir="rtl">
+                {/* Add Related Properties Section */}
+          {relatedProperties && relatedProperties.length > 0 && (
+            <Container>
+              <h4 className="my-3 h4">
+                اعلانات مشابهة
+              </h4>
+              <Col>
+                {relatedProperties.map((property, index) => {
+                  const imageSrc =
+                    property.primary_picture ||
+                    (property.images &&
+                      property.images[0] &&
+                      property.images[0].image) ||
+                    "placeholder.jpg";
+                  const title =
+                  stripHtml(property["Arabic Name"] || property["details_ar"] || "بدون عنوان");
+                  const address = property.full_address || "";
+
+                  return (
+                    <Col md={12} key={index} className="mb-4">
+                      <Link to={`/property/${property.slug}`}>
+                        <div className="related-property-card">
+                          <img
+                            src={imageSrc}
+                            alt={title}
+                            className="img-fluid"
+                            style={{
+                              width: "100%",
+                              height: "200px",
+                              objectFit: "cover",
+                            }}
+                          />
+                          <h5 className="mt-2">{title}</h5>
+                          <p>{address}</p>
+                        </div>
+                      </Link>
+                    </Col>
+                  );
+                })}
+              </Col>
+            </Container>
+          )}
               <ShowFilterToUser
                 type={propertyDetails.property.Type}
                 gov={propertyDetails.property.governorate}

@@ -48,6 +48,7 @@ export default function ArticleEditor({setArticle_body,article_body="",staticBod
           directionality: 'rtl', 
           plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
           toolbar: 'undo redo | blocks fontfamily fontsize forecolor backcolor | bold italic underline strikethrough | link image media table | addcomment showcomments | spellcheckdialog a11ycheck | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+          toolbar_mode: 'wrap',
           tinycomments_mode: 'embedded',
           tinycomments_author: 'Author name',
           ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
