@@ -61,7 +61,12 @@ font-size: 18px;
   width: 100%;
   height: 400px;
 }
-
-.articleCont img{
-max-width: 100%;
+.articleCont img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
+/* .articleCont img{
+max-width: 100%;
+} */

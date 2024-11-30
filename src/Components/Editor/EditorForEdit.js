@@ -43,7 +43,7 @@ export default function ArticleEditor({setArticle_body,article_body}) {
         </div>
       )}
       <Editor
-        apiKey='48w8wog8uwleo8euhujpdg4xx4cc03mskhs2ssf876m3jl2t'
+        apiKey='v40zw80tg7hspq55r2flc40psskqnyqnvqh4hhdlfue17rp2'
         value={content}
         onEditorChange={handleEditorChange}
 

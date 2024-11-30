@@ -484,7 +484,7 @@ export default function CardFav({ properties, overlay }) {
                             {item.ad.property.details_ar &&
                               renderLimitedText(
                                 item.ad.property.details_ar,
-                                450
+                                50
                               )}
                           </p>
                         </Row>

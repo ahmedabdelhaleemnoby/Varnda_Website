@@ -527,7 +527,7 @@ export default function PropertyCard({ properties = [], loading }) {
                             {property.property.details_ar &&
                               renderLimitedText(
                                 property.property.details_ar,
-                                500
+                                50
                               )}
                           </p>
                         </Row>

@@ -17,15 +17,16 @@ import {
 import VideoEmbed from "../../utility/VideoEmbed/VideoEmbed";
 import ShowFilterToUser from "../Filters/ShowFilterToUser";
 import usePageSEO from "../../hooks/usePageSEO";
+import DOMPurify from "dompurify";
 
-const CardDetails = ({ propertyDetails , relatedProperties}) => {
+const CardDetails = ({ propertyDetails, relatedProperties }) => {
   const currentUrl = window.location.href;
   usePageSEO({
     title: propertyDetails.property["Arabic Name"],
-    img: propertyDetails.property.primary_picture, 
+    img: propertyDetails.property.primary_picture,
     url: currentUrl,
     canonical: currentUrl,
-});
+  });
 
   const position = [
     propertyDetails.property.latitude,
@@ -55,8 +56,8 @@ const CardDetails = ({ propertyDetails , relatedProperties}) => {
   useEffect(() => {
     setSubCategoryName(
       propertyDetails.property["Sub Category"] === "فيلا منفصلة" ||
-        propertyDetails.property["Sub Category"] === "تاون هاوس" ||
-        propertyDetails.property["Sub Category"] === "توين هاوس"
+      propertyDetails.property["Sub Category"] === "تاون هاوس" ||
+      propertyDetails.property["Sub Category"] === "توين هاوس"
     );
   }, [propertyDetails]);
   function stripHtml(html) {
@@ -156,16 +157,18 @@ const CardDetails = ({ propertyDetails , relatedProperties}) => {
                   <h4 className="mb-4" style={{ color: "#1976d2" }}>
                     شرح العقار
                   </h4>
-                  <p
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(propertyDetails.property.details_ar),
+                    }}
                     style={{
                       fontSize: "18px",
                       fontWeight: "bold",
                       color: "rgb(72, 72, 72)",
                     }}
-                  >
-                    {stripHtml(propertyDetails.property.details_ar)}
-                  </p>
+                  />
                 </Row>
+
 
                 <Row className="p-4 mt-3" style={{ background: "white" }}>
                   <Col lg={12}>
@@ -266,8 +269,8 @@ const CardDetails = ({ propertyDetails , relatedProperties}) => {
                                 {propertyDetails.property.floor_number == 0
                                   ? "دور ارضى"
                                   : propertyDetails.property.floor_number == 10
-                                  ? "+10"
-                                  : propertyDetails.property.floor_number}
+                                    ? "+10"
+                                    : propertyDetails.property.floor_number}
                               </th>
                             </tr>
                           )}
@@ -383,22 +386,22 @@ const CardDetails = ({ propertyDetails , relatedProperties}) => {
                                   {(propertyDetails.property.finishing_type ===
                                     "تشطيب بالأجهزة" ||
                                     propertyDetails.property.finishing_type ===
-                                      "تشطيب كامل") && (
-                                    <p
-                                      style={{
-                                        color: "#888",
-                                        fontWeight: "700",
-                                        margin: "0px",
-                                      }}
-                                    >
-                                      {" "}
-                                      (
-                                      {propertyDetails.property.Furnished
-                                        ? "مفروشه"
-                                        : "غير مفروشه"}
-                                      ){" "}
-                                    </p>
-                                  )}
+                                    "تشطيب كامل") && (
+                                      <p
+                                        style={{
+                                          color: "#888",
+                                          fontWeight: "700",
+                                          margin: "0px",
+                                        }}
+                                      >
+                                        {" "}
+                                        (
+                                        {propertyDetails.property.Furnished
+                                          ? "مفروشه"
+                                          : "غير مفروشه"}
+                                        ){" "}
+                                      </p>
+                                    )}
                                 </th>
                               </tr>
                             )}
@@ -419,13 +422,13 @@ const CardDetails = ({ propertyDetails , relatedProperties}) => {
                                   {propertyDetails.property.renting_type == 1
                                     ? "شهرى"
                                     : propertyDetails.property.renting_type == 3
-                                    ? "ربع سنوى"
-                                    : propertyDetails.property.renting_type == 6
-                                    ? "نصف سنوى"
-                                    : propertyDetails.property.renting_type ==
-                                      12
-                                    ? "سنوى"
-                                    : ""}
+                                      ? "ربع سنوى"
+                                      : propertyDetails.property.renting_type == 6
+                                        ? "نصف سنوى"
+                                        : propertyDetails.property.renting_type ==
+                                          12
+                                          ? "سنوى"
+                                          : ""}
                                 </th>
                               </tr>
                             )}
@@ -549,24 +552,22 @@ const CardDetails = ({ propertyDetails , relatedProperties}) => {
                         variant="secondary"
                         className="m-2 btn-lg"
                         onClick={() => {
-                          const mailtoLink = `mailto:${
-                            propertyDetails.email
-                          }?subject=${encodeURIComponent(
-                            "عقار على فارندا"
-                          )}&body=${encodeURIComponent(
-                            `الرقم التعريفى للاعلان: ${propertyDetails.id}`
-                          )}`;
+                          const mailtoLink = `mailto:${propertyDetails.email
+                            }?subject=${encodeURIComponent(
+                              "عقار على فارندا"
+                            )}&body=${encodeURIComponent(
+                              `الرقم التعريفى للاعلان: ${propertyDetails.id}`
+                            )}`;
                           window.location.href = mailtoLink;
                         }}
                       >
                         <FontAwesomeIcon icon={faEnvelope} /> الإيميل
                       </Button>
                       <a
-                        href={`https://api.whatsapp.com/send?phone=2${
-                          propertyDetails.whats_phone
-                        }&text=${encodeURIComponent(
-                          "مرحباً، أنا مهتم بعقارك الموجود على فارندا.: "
-                        )}${encodeURIComponent(`http://varnda.com/property/${encodeURIComponent(propertyDetails.slug)}`)}`}
+                        href={`https://api.whatsapp.com/send?phone=2${propertyDetails.whats_phone
+                          }&text=${encodeURIComponent(
+                            "مرحباً، أنا مهتم بعقارك الموجود على فارندا.: "
+                          )}${encodeURIComponent(`http://varnda.com/property/${encodeURIComponent(propertyDetails.slug)}`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -731,50 +732,50 @@ const CardDetails = ({ propertyDetails , relatedProperties}) => {
                 </Col>
               </Col>
             </Col>
-                
-            <Col md={12} lg={4} dir="rtl">
-                {/* Add Related Properties Section */}
-          {relatedProperties && relatedProperties.length > 0 && (
-            <Container>
-              <h4 className="my-3 h4">
-                اعلانات مشابهة
-              </h4>
-              <Col>
-                {relatedProperties.map((property, index) => {
-                  const imageSrc =
-                    property.primary_picture ||
-                    (property.images &&
-                      property.images[0] &&
-                      property.images[0].image) ||
-                    "placeholder.jpg";
-                  const title =
-                  stripHtml(property["Arabic Name"] || property["details_ar"] || "بدون عنوان");
-                  const address = property.full_address || "";
 
-                  return (
-                    <Col md={12} key={index} className="mb-4">
-                      <Link to={`/property/${property.slug}`}>
-                        <div className="related-property-card">
-                          <img
-                            src={imageSrc}
-                            alt={title}
-                            className="img-fluid"
-                            style={{
-                              width: "100%",
-                              height: "200px",
-                              objectFit: "cover",
-                            }}
-                          />
-                          <h5 className="mt-2">{title}</h5>
-                          <p>{address}</p>
-                        </div>
-                      </Link>
-                    </Col>
-                  );
-                })}
-              </Col>
-            </Container>
-          )}
+            <Col md={12} lg={4} dir="rtl">
+              {/* Add Related Properties Section */}
+              {relatedProperties && relatedProperties.length > 0 && (
+                <Container>
+                  <h4 className="my-3 h4">
+                    اعلانات مشابهة
+                  </h4>
+                  <Col>
+                    {relatedProperties.map((property, index) => {
+                      const imageSrc =
+                        property.primary_picture ||
+                        (property.images &&
+                          property.images[0] &&
+                          property.images[0].image) ||
+                        "placeholder.jpg";
+                      const title =
+                        stripHtml(property["Arabic Name"] || property["details_ar"] || "بدون عنوان");
+                      const address = property.full_address || "";
+
+                      return (
+                        <Col md={12} key={index} className="mb-4">
+                          <Link to={`/property/${property.slug}`}>
+                            <div className="related-property-card">
+                              <img
+                                src={imageSrc}
+                                alt={title}
+                                className="img-fluid"
+                                style={{
+                                  width: "100%",
+                                  height: "200px",
+                                  objectFit: "cover",
+                                }}
+                              />
+                              <h5 className="mt-2">{title}</h5>
+                              <p>{address}</p>
+                            </div>
+                          </Link>
+                        </Col>
+                      );
+                    })}
+                  </Col>
+                </Container>
+              )}
               <ShowFilterToUser
                 type={propertyDetails.property.Type}
                 gov={propertyDetails.property.governorate}
