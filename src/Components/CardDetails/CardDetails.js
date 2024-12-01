@@ -457,7 +457,13 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                               المحافظة
                             </th>
                             <th className="w-50 p-3 leftTablePart">
-                              {propertyDetails.property.governorate}
+                              {propertyDetails.governorate_url ? (
+                                <Link to={`/${propertyDetails.governorate_url}`} key={propertyDetails.governorate_url}>
+                                  {propertyDetails.property.governorate}
+                                </Link>
+                              )
+                                : propertyDetails.property.governorate}
+
                             </th>
                           </tr>
                         )}
@@ -470,7 +476,14 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                               المدينة
                             </th>
                             <th className="w-50 p-3 leftTablePart">
-                              {propertyDetails.property.city}
+                              {propertyDetails.city_url && propertyDetails.governorate_url ? (
+                                <Link to={`/${propertyDetails.governorate_url + '/' + propertyDetails.city_url}`} key={propertyDetails.city_url}>
+                                  {propertyDetails.property.city}
+                                </Link>
+                              ) : (
+                                propertyDetails.property.city
+                              )
+                              }
                             </th>
                           </tr>
                         )}
@@ -483,7 +496,14 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                               المنطقة
                             </th>
                             <th className="w-50 p-3 leftTablePart">
-                              {propertyDetails.property.region}
+                              {propertyDetails.region_url && propertyDetails.city_url && propertyDetails.governorate_url ? (
+                                <Link to={`/${propertyDetails.governorate_url + '/' + propertyDetails.city_url + '/' + propertyDetails.region_url}`} key={propertyDetails.region_url}>
+                                  {propertyDetails.property.region}
+                                </Link>
+                              ) : (
+                                propertyDetails.property.region
+                              )
+                              }
                             </th>
                           </tr>
                         )}
@@ -496,7 +516,11 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                               الشارع
                             </th>
                             <th className="w-50 p-3 leftTablePart">
-                              {propertyDetails.property.street}
+                              {propertyDetails.region_url && propertyDetails.city_url  && propertyDetails.street_url ? (
+                                <Link to={`/${propertyDetails.governorate_url + '/' + propertyDetails.city_url + '/' + propertyDetails.street_url}`} key={propertyDetails.street_url}>
+                                  {propertyDetails.property.region}
+                                </Link>
+                              ) : propertyDetails.property.street}
                             </th>
                           </tr>
                         )}
@@ -509,7 +533,11 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                               الكومباوند
                             </th>
                             <th className="w-50 p-3 leftTablePart">
-                              {propertyDetails.property.compound_name}
+                              { propertyDetails.compound_url && propertyDetails.governorate_url && propertyDetails.city_url   ? (
+                                  <Link to={`/${propertyDetails.governorate_url + '/' + propertyDetails.city_url + '/' + propertyDetails.compound_url}`} key={propertyDetails.compound_url}>
+                                  {propertyDetails.property.compound_name}
+                                </Link>
+                              ) : propertyDetails.property.compound_name}
                             </th>
                           </tr>
                         )}
@@ -522,7 +550,12 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                               المول
                             </th>
                             <th className="w-50 p-3 leftTablePart">
-                              {propertyDetails.property.mall_name}
+                              { propertyDetails.mall_url && propertyDetails.governorate_url && propertyDetails.city_url  ? (
+                                <Link to={`/${propertyDetails.governorate_url + '/' + propertyDetails.city_url + '/' + propertyDetails.mall_url}`} key={propertyDetails.mall_url}>
+                                  {propertyDetails.property.mall_name}
+                                </Link>
+                              ) :
+                              propertyDetails.property.mall_name}
                             </th>
                           </tr>
                         )}
@@ -751,6 +784,7 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                       const title =
                         stripHtml(property["Arabic Name"] || property["details_ar"] || "بدون عنوان");
                       const address = property.full_address || "";
+                      const price = property.price || 0;
 
                       return (
                         <Col md={12} key={index} className="mb-4">
@@ -768,6 +802,16 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                               />
                               <h5 className="mt-2">{title}</h5>
                               <p>{address}</p>
+                              <p
+                                style={{
+                                  color: "#1976d2",
+                                  fontSize: "28px",
+                                  fontWeight: "bold",
+                                  marginLeft: "5px",
+                                  position: "relative",
+                                  textAlign: "left",
+                                }}
+                              > {Number(price).toLocaleString("ar-EG")} ج.م                      </p>
                             </div>
                           </Link>
                         </Col>

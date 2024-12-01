@@ -35,6 +35,10 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
     temporalDivElement.innerHTML = html;
     return temporalDivElement.textContent || temporalDivElement.innerText || "";
   }
+  function truncateText(text, maxLength) {
+    return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+  }
+  
   return (
     <>
       <div className="details-container mt-5" dir="rtl">
@@ -139,38 +143,39 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
                     اعلانات مشابهة
                   </h4>
                   <Col>
-                    {relatedProperties.map((property, index) => {
-                      const imageSrc =
-                        property.primary_picture ||
-                        (property.images &&
-                          property.images[0] &&
-                          property.images[0].image) ||
-                        "placeholder.jpg";
-                      const title =
-                        stripHtml(property["Arabic Name"] || property["details_ar"] || "بدون عنوان");
-                      const address = property.full_address || "";
+                  {relatedProperties.map((property, index) => {
+  const imageSrc =
+    property.primary_picture ||
+    (property.images &&
+      property.images[0] &&
+      property.images[0].image) ||
+    "placeholder.jpg";
+  const title = stripHtml(property["Arabic Name"] || property["details_ar"] || "بدون عنوان");
+  const truncatedTitle = truncateText(title, 100);
+  const address = property.full_address || "";
 
-                      return (
-                        <Col md={12} key={index} className="mb-4">
-                          <Link to={`/property/${property.slug}`}>
-                            <div className="related-property-card">
-                              <img
-                                src={imageSrc}
-                                alt={title}
-                                className="img-fluid"
-                                style={{
-                                  width: "100%",
-                                  height: "200px",
-                                  objectFit: "cover",
-                                }}
-                              />
-                              <h5 className="mt-2">{title}</h5>
-                              <p>{address}</p>
-                            </div>
-                          </Link>
-                        </Col>
-                      );
-                    })}
+  return (
+    <Col md={12} key={index} className="mb-4">
+      <Link to={`/property/${property.slug}`}>
+        <div className="related-property-card">
+          <img
+            src={imageSrc}
+            alt={truncatedTitle}
+            className="img-fluid"
+            style={{
+              width: "100%",
+              height: "200px",
+              objectFit: "cover",
+            }}
+          />
+          <h5 className="mt-2">{truncatedTitle}</h5>
+          <p>{address}</p>
+        </div>
+      </Link>
+    </Col>
+  );
+})}
+
                   </Col>
                 </Container>
               )}

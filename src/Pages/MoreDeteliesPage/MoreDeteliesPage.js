@@ -52,7 +52,7 @@ const[data,setData]=useState("")
       ) : (
         <>
           <Header />
-          {data.ad.ad_type?<QuickCardDetails propertyDetails={data.ad} relatedProperties={data.related_properties} />:<CardDetails propertyDetails={data.ad} relatedProperties={data.related_properties} />}
+          {data.ad.ad_type?<QuickCardDetails propertyDetails={data.ad} relatedProperties={data.related_properties}/>:<CardDetails propertyDetails={data.ad} relatedProperties={data.related_properties}/>}
           <hr />
           <Container>
             <CommentCardAds ads_id={id} />
