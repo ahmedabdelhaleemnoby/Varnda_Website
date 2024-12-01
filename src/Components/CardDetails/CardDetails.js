@@ -800,7 +800,7 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                                   objectFit: "cover",
                                 }}
                               />
-                              <h5 className="mt-2">{title}</h5>
+                              <h5 className="mt-2" style={{ color: "#333" , fontSize:"x-large" , marginTop:"10px" , fontWeight:"bold" }}>{title}</h5>
                               <p>{address}</p>
                               <p
                                 style={{
@@ -811,7 +811,7 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                                   position: "relative",
                                   textAlign: "left",
                                 }}
-                              > {Number(price).toLocaleString("ar-EG")} ج.م                      </p>
+                              > {Number(price).toLocaleString("ar-EG")} ج.م </p>
                             </div>
                           </Link>
                         </Col>
