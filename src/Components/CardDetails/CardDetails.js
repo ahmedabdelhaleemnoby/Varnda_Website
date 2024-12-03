@@ -788,7 +788,7 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
 
                       return (
                         <Col md={12} key={index} className="mb-4">
-                          <Link to={`/property/${property.slug}`}>
+                          <Link to={`/property/${property.slug}`} className="related-property-card">
                             <div className="related-property-card">
                               <img
                                 src={imageSrc}
