@@ -40,7 +40,10 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
     shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
     shadowSize: [41, 41],
   });
-
+// Scroll to top on component mount
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -122,32 +125,39 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                 <Row style={{ background: "white" }}>
                   {propertyDetails.property.images.length > 0 ? (
                     <Slider {...sliderSettings}>
-                      <div key={100}>
+                      <div key={100} style={{ height: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <img
                           src={propertyDetails.property.primary_picture}
                           alt={`صوره الاعلان الرئيسيه`}
                           className="img-fluid"
-                          style={{ height: "400px" }}
+                          style={{ height: "100%" , objectFit: "contain"}}
                         />
                       </div>
                       {propertyDetails.property.images.map((image, index) => (
-                        <div key={index}>
+                        <div key={index} style={{ height: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <img
                             src={image.image}
                             alt={`Slide ${index}`}
                             className="img-fluid"
-                            style={{ height: "400px" }}
+                            style={{
+                              height: "100%",
+                              objectFit: "contain",
+                            }}
                           />
                         </div>
                       ))}
                     </Slider>
                   ) : (
-                    <div key={100}>
+                    <div key={100} style={{ height: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <img
                         src={propertyDetails.property.primary_picture}
                         alt={`صوره الاعلان الرئيسيه`}
                         className="img-fluid w-100"
-                        style={{ width: "100%", height: "400px" }}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          objectFit: "contain",
+                        }}
                       />
                     </div>
                   )}

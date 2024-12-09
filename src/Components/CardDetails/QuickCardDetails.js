@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "slick-carousel/slick/slick.css";
@@ -20,6 +20,11 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
     url: currentUrl,
   });
 
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -30,15 +35,17 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
     autoplaySpeed: 3500,
     arrows: false,
   };
+
   function stripHtml(html) {
     let temporalDivElement = document.createElement("div");
     temporalDivElement.innerHTML = html;
     return temporalDivElement.textContent || temporalDivElement.innerText || "";
   }
+
   function truncateText(text, maxLength) {
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
   }
-  
+
   return (
     <>
       <div className="details-container mt-5" dir="rtl">
@@ -48,23 +55,30 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
               {propertyDetails.property.images.length > 1 ? (
                 <Slider {...sliderSettings}>
                   {propertyDetails.property.images.map((image, index) => (
-                    <div key={index}>
+                    <div key={index} style={{ height: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <img
                         src={image.image}
                         alt={`Slide ${index}`}
                         className="img-fluid"
-                        style={{ height: "400px" }}
+                        style={{
+                          height: "100%",
+                          objectFit: "contain",
+                        }}
                       />
                     </div>
                   ))}
                 </Slider>
               ) : (
-                <div key={100}>
+                <div key={100} style={{ height: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <img
                     src={propertyDetails.property.images[0].image}
                     alt={`صور الاعلان `}
                     className="img-fluid"
-                    style={{ height: "400px" }}
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "contain",
+                    }}
                   />
                 </div>
               )}
@@ -101,26 +115,22 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
                       variant="secondary"
                       className="m-2 btn-lg"
                       onClick={() => {
-                        const mailtoLink = `mailto:${propertyDetails.email
-                          }?subject=${encodeURIComponent(
-                            "عقار على فارندا"
-                          )}&body=${encodeURIComponent(
-                            `الرقم التعريفى للاعلان: ${propertyDetails.id}`
-                          )}`;
+                        const mailtoLink = `mailto:${propertyDetails.email}?subject=${encodeURIComponent(
+                          "عقار على فارندا"
+                        )}&body=${encodeURIComponent(
+                          `الرقم التعريفى للاعلان: ${propertyDetails.id}`
+                        )}`;
                         window.location.href = mailtoLink;
                       }}
                     >
                       <FontAwesomeIcon icon={faEnvelope} /> الإيميل
                     </Button>
                     <a
-                      href={`https://api.whatsapp.com/send?phone=2${propertyDetails.whats_phone
-                        }&text=${encodeURIComponent(
-                          "مرحباً، أنا مهتم بعقارك الموجود على فارندا.: "
-                        )}${encodeURIComponent(
-                          ` http://varnda.com/property/${encodeURIComponent(
-                            propertyDetails.slug
-                          )}`
-                        )}`}
+                      href={`https://api.whatsapp.com/send?phone=2${propertyDetails.whats_phone}&text=${encodeURIComponent(
+                        "مرحباً، أنا مهتم بعقارك الموجود على فارندا.: "
+                      )}${encodeURIComponent(
+                        ` http://varnda.com/property/${encodeURIComponent(propertyDetails.slug)}`
+                      )}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -133,49 +143,46 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
               </Col>
             </Col>
 
-
             {/* Existing ShowFilterToUser Component */}
             <Col xs={12} lg={4} dir="rtl">
               {/* Add Related Properties Section */}
               {relatedProperties && relatedProperties.length > 0 && (
                 <Container>
-                  <h4 className="my-3 h4">
-                    اعلانات مشابهة
-                  </h4>
+                  <h4 className="my-3 h4">اعلانات مشابهة</h4>
                   <Col>
-                  {relatedProperties.map((property, index) => {
-  const imageSrc =
-    property.primary_picture ||
-    (property.images &&
-      property.images[0] &&
-      property.images[0].image) ||
-    "placeholder.jpg";
-  const title = stripHtml(property["Arabic Name"] || property["details_ar"] || "بدون عنوان");
-  const truncatedTitle = truncateText(title, 100);
-  const address = property.full_address || "";
+                    {relatedProperties.map((property, index) => {
+                      const imageSrc =
+                        property.primary_picture ||
+                        (property.images &&
+                          property.images[0] &&
+                          property.images[0].image) ||
+                        "placeholder.jpg";
+                      const title =
+                        stripHtml(property["Arabic Name"] || property["details_ar"] || "بدون عنوان");
+                      const truncatedTitle = truncateText(title, 100);
+                      const address = property.full_address || "";
 
-  return (
-    <Col md={12} key={index} className="mb-4">
-      <Link to={`/property/${property.slug}`}>
-        <div className="related-property-card">
-          <img
-            src={imageSrc}
-            alt={truncatedTitle}
-            className="img-fluid"
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-            }}
-          />
-          <h5 className="mt-2">{truncatedTitle}</h5>
-          <p>{address}</p>
-        </div>
-      </Link>
-    </Col>
-  );
-})}
-
+                      return (
+                        <Col md={12} key={index} className="mb-4">
+                          <Link to={`/property/${property.slug}`}>
+                            <div className="related-property-card">
+                              <img
+                                src={imageSrc}
+                                alt={truncatedTitle}
+                                className="img-fluid"
+                                style={{
+                                  width: "100%",
+                                  height: "200px",
+                                  objectFit: "cover",
+                                }}
+                              />
+                              <h5 className="mt-2">{truncatedTitle}</h5>
+                              <p>{address}</p>
+                            </div>
+                          </Link>
+                        </Col>
+                      );
+                    })}
                   </Col>
                 </Container>
               )}
@@ -188,10 +195,6 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
               />
             </Col>
           </Row>
-
-
-
-
         </Container>
       </div>
     </>
