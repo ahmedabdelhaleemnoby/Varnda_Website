@@ -52,8 +52,8 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
                       <img
                         src={image.image}
                         alt={`Slide ${index}`}
-                        className="img-fluid w-100"
-                        style={{ width: "100%", height: "400px" }}
+                        className="img-fluid"
+                        style={{ height: "400px" }}
                       />
                     </div>
                   ))}
@@ -63,8 +63,8 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
                   <img
                     src={propertyDetails.property.images[0].image}
                     alt={`صور الاعلان `}
-                    className="img-fluid w-100"
-                    style={{ width: "100%", height: "400px" }}
+                    className="img-fluid"
+                    style={{ height: "400px" }}
                   />
                 </div>
               )}

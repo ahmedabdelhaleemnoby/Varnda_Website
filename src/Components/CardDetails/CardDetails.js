@@ -126,8 +126,8 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                         <img
                           src={propertyDetails.property.primary_picture}
                           alt={`صوره الاعلان الرئيسيه`}
-                          className="img-fluid w-100"
-                          style={{ width: "100%", height: "400px" }}
+                          className="img-fluid"
+                          style={{ height: "400px" }}
                         />
                       </div>
                       {propertyDetails.property.images.map((image, index) => (
@@ -135,8 +135,8 @@ const CardDetails = ({ propertyDetails, relatedProperties }) => {
                           <img
                             src={image.image}
                             alt={`Slide ${index}`}
-                            className="img-fluid w-100"
-                            style={{ width: "100%", height: "400px" }}
+                            className="img-fluid"
+                            style={{ height: "400px" }}
                           />
                         </div>
                       ))}
