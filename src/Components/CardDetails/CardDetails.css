@@ -25,3 +25,8 @@
   a.related-property-card {
     text-decoration: none;
   }
+  .slick-slide div div{
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+  }

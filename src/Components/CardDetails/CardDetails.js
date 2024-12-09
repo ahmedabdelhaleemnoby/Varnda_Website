@@ -130,7 +130,9 @@ useEffect(() => {
                           src={propertyDetails.property.primary_picture}
                           alt={`صوره الاعلان الرئيسيه`}
                           className="img-fluid"
-                          style={{ height: "100%" , objectFit: "contain"}}
+                          style={{ maxHeight: "100%",
+                            maxWidth: "100%",
+                            objectFit: "contain",}}
                         />
                       </div>
                       {propertyDetails.property.images.map((image, index) => (
@@ -140,7 +142,8 @@ useEffect(() => {
                             alt={`Slide ${index}`}
                             className="img-fluid"
                             style={{
-                              height: "100%",
+                              maxHeight: "100%",
+                              maxWidth: "100%",
                               objectFit: "contain",
                             }}
                           />
@@ -250,8 +253,8 @@ useEffect(() => {
                           </th>
                         </tr>
                         {(subCategoryName ||
-                          propertyDetails.property.Category == "مبانى" ||
-                          propertyDetails.property.Category == "منازل") &&
+                          propertyDetails.property.Category === "مبانى" ||
+                          propertyDetails.property.Category === "منازل") &&
                           propertyDetails.property.floors != null && (
                             <tr>
                               <th
@@ -276,9 +279,9 @@ useEffect(() => {
                                 رقم الدور
                               </th>
                               <th className="w-50 p-3 leftTablePart">
-                                {propertyDetails.property.floor_number == 0
+                                {propertyDetails.property.floor_number === 0
                                   ? "دور ارضى"
-                                  : propertyDetails.property.floor_number == 10
+                                  : propertyDetails.property.floor_number === 10
                                     ? "+10"
                                     : propertyDetails.property.floor_number}
                               </th>
@@ -293,7 +296,7 @@ useEffect(() => {
                             عدد الغرف
                           </th>
                           <th className="w-50 p-3 leftTablePart">
-                            {propertyDetails.property.rooms == 10
+                            {propertyDetails.property.rooms === 10
                               ? "+10"
                               : propertyDetails.property.rooms}
                           </th>
@@ -306,7 +309,7 @@ useEffect(() => {
                             عدد الحمامات
                           </th>
                           <th className="w-50 p-3 leftTablePart">
-                            {propertyDetails.property.bathrooms == 6
+                            {propertyDetails.property.bathrooms === 6
                               ? "+6"
                               : propertyDetails.property.bathrooms}
                           </th>
@@ -363,7 +366,7 @@ useEffect(() => {
                                   تاريخ التسليم
                                 </th>
                                 <th className="w-50 p-3 leftTablePart">
-                                  {propertyDetails.property.deliver_date == 0
+                                  {propertyDetails.property.deliver_date === 0
                                     ? "فورى"
                                     : propertyDetails.property.deliver_date}
                                 </th>
@@ -429,13 +432,13 @@ useEffect(() => {
                                   نوع الايجار
                                 </th>
                                 <th className="w-50 p-3 leftTablePart">
-                                  {propertyDetails.property.renting_type == 1
+                                  {propertyDetails.property.renting_type === 1
                                     ? "شهرى"
-                                    : propertyDetails.property.renting_type == 3
+                                    : propertyDetails.property.renting_type === 3
                                       ? "ربع سنوى"
-                                      : propertyDetails.property.renting_type == 6
+                                      : propertyDetails.property.renting_type === 6
                                         ? "نصف سنوى"
-                                        : propertyDetails.property.renting_type ==
+                                        : propertyDetails.property.renting_type ===
                                           12
                                           ? "سنوى"
                                           : ""}

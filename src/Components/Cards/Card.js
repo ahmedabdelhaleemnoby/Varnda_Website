@@ -164,7 +164,9 @@ export default function PropertyCard({ properties = [], loading }) {
                           <img
                             src={property.property.primary_picture}
                             alt="صوره الاعلان الرئيسيه"
-                            style={{ width: "100%", height: "300px" }}
+                            style={{maxHeight: "100%",
+                              maxWidth: "100%",
+                              objectFit: "contain", }}
                           />
                         </div>
                         {property.property.images.map((image, idx) => (
@@ -172,7 +174,9 @@ export default function PropertyCard({ properties = [], loading }) {
                             <img
                               src={image.image}
                               alt={`imgCard-${idx}`}
-                              style={{ width: "100%", height: "300px" }}
+                              style={{ maxHeight: "100%",
+                                maxWidth: "100%",
+                                objectFit: "contain",}}
                             />
                           </div>
                         ))}
@@ -183,7 +187,9 @@ export default function PropertyCard({ properties = [], loading }) {
                           src={property.property.primary_picture}
                           alt={`صوره الاعلان الرئيسيه`}
                           key={index}
-                          style={{ width: "100%", height: "300px" }}
+                          style={{ maxHeight: "100%",
+                            maxWidth: "100%",
+                            objectFit: "contain", }}
                         />
                       </div>
                     )}
@@ -316,7 +322,7 @@ export default function PropertyCard({ properties = [], loading }) {
                                 color: "black",
                               }}
                             >
-                              {property.property.rooms == 10
+                              {property.property.rooms === 10
                                 ? "+10"
                                 : property.property.rooms}
                             </span>
@@ -339,7 +345,7 @@ export default function PropertyCard({ properties = [], loading }) {
                                 color: "black",
                               }}
                             >
-                              {property.property.bathrooms == 6
+                              {property.property.bathrooms === 6
                                 ? "+6"
                                 : property.property.bathrooms}
                             </span>
@@ -446,7 +452,9 @@ export default function PropertyCard({ properties = [], loading }) {
                               src={image.image}
                               alt={`imgCard-${idx}`}
                               key={idx}
-                              style={{ width: "100%", height: "300px" }}
+                              style={{ maxHeight: "100%",
+                                maxWidth: "100%",
+                                objectFit: "contain", }}
                             />
                           </div>
                         ))}
@@ -457,7 +465,9 @@ export default function PropertyCard({ properties = [], loading }) {
                           src={property.property.images[0].image}
                           alt={`صوره الاعلان`}
                           key={index}
-                          style={{ width: "100%", height: "300px" }}
+                          style={{ maxHeight: "100%",
+                            maxWidth: "100%",
+                            objectFit: "contain", }}
                         />
                       </div>
                     )}
