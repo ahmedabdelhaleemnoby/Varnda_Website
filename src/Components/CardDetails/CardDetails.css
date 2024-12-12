@@ -6,7 +6,7 @@
 }
 .related-property-card {
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 5px;
     text-align: right; /* Since Arabic is right-to-left */
     background-color: #f9f9f9;
     border-radius: 5px;

@@ -802,7 +802,7 @@ useEffect(() => {
                       const price = property.price || 0;
 
                       return (
-                        <Col md={12} key={index} className="mb-4">
+                        <Col md={12} key={index} className="mb-2">
                           <Link to={`/property/${property.slug}`} className="related-property-card">
                             <div className="related-property-card">
                               <img
