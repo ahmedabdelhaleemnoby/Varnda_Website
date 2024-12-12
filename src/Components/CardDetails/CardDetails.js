@@ -368,7 +368,7 @@ useEffect(() => {
                                   تاريخ التسليم
                                 </th>
                                 <th className="w-50 p-3 leftTablePart">
-                                  {propertyDetails.property.deliver_date === 0
+                                  {propertyDetails.property.deliver_date === "0"
                                     ? "فورى"
                                     : propertyDetails.property.deliver_date}
                                 </th>
