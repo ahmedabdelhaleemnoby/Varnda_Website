@@ -130,9 +130,11 @@ useEffect(() => {
                           src={propertyDetails.property.primary_picture}
                           alt={`صوره الاعلان الرئيسيه`}
                           className="img-fluid"
-                          style={{ maxHeight: "100%",
+                          style={{
+                            maxHeight: "500px",
                             maxWidth: "100%",
-                            objectFit: "contain",}}
+                            objectFit: "contain",
+                          }}
                         />
                       </div>
                       {propertyDetails.property.images.map((image, index) => (
@@ -142,7 +144,7 @@ useEffect(() => {
                             alt={`Slide ${index}`}
                             className="img-fluid"
                             style={{
-                              maxHeight: "100%",
+                              maxHeight: "500px",
                               maxWidth: "100%",
                               objectFit: "contain",
                             }}

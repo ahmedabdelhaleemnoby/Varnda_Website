@@ -61,9 +61,9 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
                         alt={`Slide ${index}`}
                         className="img-fluid"
                         style={{
-                          maxHeight: "100%",
-          maxWidth: "100%",
-          objectFit: "contain",
+                          maxHeight: "500px",
+                          maxWidth: "100%",
+                          objectFit: "contain",
                         }}
                       />
                     </div>
@@ -76,9 +76,9 @@ const QuickCardDetails = ({ propertyDetails, relatedProperties }) => {
                     alt={`صور الاعلان `}
                     className="img-fluid"
                     style={{
-                      maxHeight: "100%",
-          maxWidth: "100%",
-          objectFit: "contain",
+                      maxHeight: "500px",
+                      maxWidth: "100%",
+                      objectFit: "contain",
                     }}
                   />
                 </div>

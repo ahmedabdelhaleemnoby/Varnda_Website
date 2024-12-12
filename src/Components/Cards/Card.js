@@ -164,9 +164,11 @@ export default function PropertyCard({ properties = [], loading }) {
                           <img
                             src={property.property.primary_picture}
                             alt="صوره الاعلان الرئيسيه"
-                            style={{maxHeight: "100%",
+                            style={{
+                              maxHeight: "300px",
                               maxWidth: "100%",
-                              objectFit: "contain", }}
+                              objectFit: "contain",
+                            }}
                           />
                         </div>
                         {property.property.images.map((image, idx) => (
@@ -174,9 +176,11 @@ export default function PropertyCard({ properties = [], loading }) {
                             <img
                               src={image.image}
                               alt={`imgCard-${idx}`}
-                              style={{ maxHeight: "100%",
+                              style={{
+                                maxHeight: "300px",
                                 maxWidth: "100%",
-                                objectFit: "contain",}}
+                                objectFit: "contain",
+                              }}
                             />
                           </div>
                         ))}
@@ -187,9 +191,11 @@ export default function PropertyCard({ properties = [], loading }) {
                           src={property.property.primary_picture}
                           alt={`صوره الاعلان الرئيسيه`}
                           key={index}
-                          style={{ maxHeight: "100%",
+                          style={{
+                            maxHeight: "300px",
                             maxWidth: "100%",
-                            objectFit: "contain", }}
+                            objectFit: "contain",
+                          }}
                         />
                       </div>
                     )}
@@ -452,9 +458,11 @@ export default function PropertyCard({ properties = [], loading }) {
                               src={image.image}
                               alt={`imgCard-${idx}`}
                               key={idx}
-                              style={{ maxHeight: "100%",
+                              style={{
+                                maxHeight: "300px",
                                 maxWidth: "100%",
-                                objectFit: "contain", }}
+                                objectFit: "contain",
+                              }}
                             />
                           </div>
                         ))}
@@ -465,9 +473,11 @@ export default function PropertyCard({ properties = [], loading }) {
                           src={property.property.images[0].image}
                           alt={`صوره الاعلان`}
                           key={index}
-                          style={{ maxHeight: "100%",
+                          style={{
+                            maxHeight: "300px",
                             maxWidth: "100%",
-                            objectFit: "contain", }}
+                            objectFit: "contain",
+                          }}
                         />
                       </div>
                     )}

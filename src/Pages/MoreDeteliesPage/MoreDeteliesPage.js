@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { Container } from "react-bootstrap";
@@ -10,41 +10,48 @@ import CardDetails from "../../Components/CardDetails/CardDetails.js";
 import { useParams } from "react-router-dom";
 import CommentCardAds from "../../Components/Comments/CommentCardAds.js";
 import AddCommentAds from "../../Components/Comments/AddCommentAds.js";
-
 import Share from "../../Components/Cards/Share.js";
 import OverPage from "../../Components/OverPage/OverPage.js";
 import NotFoundPage from './../NotFoundPage/NotFoundPage';
 import QuickCardDetails from "../../Components/CardDetails/QuickCardDetails.js";
 
 const MoreDeteliesPage = () => {
-  const {id}=useParams()
-  const [over,setOver]=useState(true)
-const[data,setData]=useState("")
-  useEffect(()=>{
-    const getOneAds = async (e) => {
-        try {
-          const token=Cookies.get("token")
-          const response = await api.get(`/getAd/${id}`, null, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            }
-          })
-          const adsData=response.data.data
-          setData(adsData)
-        }catch(err){
-          if(err.response.data.status===404){
-            setData("NotFound")
-          }
-          
+  const { id } = useParams();
+  const [over, setOver] = useState(true);
+  const [data, setData] = useState("");
+  const [loading, setLoading] = useState(true); // State for loading
+
+  useEffect(() => {
+    const getOneAds = async () => {
+      try {
+        setLoading(true); // Set loading to true before API call
+        const token = Cookies.get("token");
+        const response = await api.get(`/getAd/${id}`, null, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const adsData = response.data.data;
+        setData(adsData);
+      } catch (err) {
+        if (err.response?.data?.status === 404) {
+          setData("NotFound");
         }
-        finally{
-          setOver(false)
-        }
+      } finally {
+        setOver(false);
+        setLoading(false); // Set loading to false after API call
       }
-      getOneAds()
-  },[id])
+    };
+    getOneAds();
+  }, [id]);
+
   return (
     <>
+      {loading && ( // Loader element
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       {data === "NotFound" ? (
         <NotFoundPage />
       ) : data === "" ? (
@@ -52,7 +59,17 @@ const[data,setData]=useState("")
       ) : (
         <>
           <Header />
-          {data.ad.ad_type?<QuickCardDetails propertyDetails={data.ad} relatedProperties={data.related_properties}/>:<CardDetails propertyDetails={data.ad} relatedProperties={data.related_properties}/>}
+          {data.ad.ad_type ? (
+            <QuickCardDetails
+              propertyDetails={data.ad}
+              relatedProperties={data.related_properties}
+            />
+          ) : (
+            <CardDetails
+              propertyDetails={data.ad}
+              relatedProperties={data.related_properties}
+            />
+          )}
           <hr />
           <Container>
             <CommentCardAds ads_id={id} />
@@ -74,5 +91,3 @@ const[data,setData]=useState("")
 };
 
 export default MoreDeteliesPage;
-
-
