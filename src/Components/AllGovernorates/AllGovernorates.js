@@ -20,19 +20,19 @@ export default function AllGovernorates() {
         const details = {};
         data.forEach((gov) => {
           details[gov.url] = {
-            "Find apartments": gov.apartments.map((apartment) => ({
+            "شقق": gov.apartments.map((apartment) => ({
               name: apartment.filter_name,
               url: apartment.url,
             })),
-            "Find villas": gov.villas.map((villa) => ({
+            "فيلات": gov.villas.map((villa) => ({
               name: villa.filter_name,
               url: villa.url,
             })),
-            "Find shops": gov.shops.map((shop) => ({
+            "عقار تجاري": gov.shops.map((shop) => ({
               name: shop.filter_name,
               url: shop.url,
             })),
-            "Find compounds": gov.compounds.map((compound) => ({
+            "كمبوندات": gov.compounds.map((compound) => ({
               name: compound.filter_name,
               url: compound.url,
             })),
@@ -40,11 +40,13 @@ export default function AllGovernorates() {
         });
         setMockDetails(details);
 
-        // Set the default selected governorate and open section
         if (data.length > 0) {
           const firstGovUrl = data[0].url;
           setSelectedGovUrl(firstGovUrl);
-          setOpenSection({ [firstGovUrl]: "Find apartments" }); // Open "Find apartments" by default
+          // Open all sections by default for the first governorate
+          setOpenSection({
+            [firstGovUrl]: Object.keys(details[firstGovUrl]),
+          });
         }
       } catch (err) {
         console.error("Error fetching governorates:", err);
@@ -55,14 +57,22 @@ export default function AllGovernorates() {
 
   const handleSelect = (govUrl) => {
     setSelectedGovUrl((prev) => (prev === govUrl ? null : govUrl));
-    setOpenSection({ [govUrl]: "Find apartments" }); // Default to "Find apartments" when selecting a new governorate
+    setOpenSection((prev) => ({
+      ...prev,
+      [govUrl]: Object.keys(mockDetails[govUrl] || {}), // Open all sections for the selected governorate
+    }));
   };
 
   const toggleSection = (govUrl, sectionName) => {
-    setOpenSection((prev) => ({
-      ...prev,
-      [govUrl]: prev[govUrl] === sectionName ? null : sectionName,
-    }));
+    setOpenSection((prev) => {
+      const currentSections = prev[govUrl] || [];
+      return {
+        ...prev,
+        [govUrl]: currentSections.includes(sectionName)
+          ? currentSections.filter((section) => section !== sectionName) // Remove section if already open
+          : [...currentSections, sectionName], // Add section if not open
+      };
+    });
   };
 
   const selectedDetails = selectedGovUrl && mockDetails[selectedGovUrl];
@@ -107,44 +117,49 @@ export default function AllGovernorates() {
           }}
         >
           {Object.entries(selectedDetails).map(([sectionName, items]) => (
-            <div key={sectionName} style={{ minWidth: "250px" }}>
-              <h5
-                style={{
-                  color: "#007bff",
-                  marginBottom: "1rem",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                onClick={() => toggleSection(selectedGovUrl, sectionName)}
-              >
-                {sectionName}
-                {/* Arrow */}
-                <span
+            items.length > 0 && ( // Only render sections with items
+              <div key={sectionName} style={{ minWidth: "250px" }}>
+                <h5
                   style={{
-                    display: "inline-block",
-                    transform: openSection[selectedGovUrl] === sectionName ? "rotate(180deg)" : "rotate(0deg)",
-                    transition: "transform 0.3s ease",
+                    color: "#007bff",
+                    marginBottom: "1rem",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
                   }}
+                  onClick={() => toggleSection(selectedGovUrl, sectionName)}
                 >
-                  ▼
-                </span>
-              </h5>
-              {openSection[selectedGovUrl] === sectionName && (
-                <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                  {items.map((item, index) => (
-                    <li key={index} style={{ marginBottom: "0.5rem" }}>
-                      <Link
-                        to={`/${item.url}`}
-                        style={{ textDecoration: "none", color: "#333" }}
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+                  {sectionName}
+                  {/* Arrow */}
+                  <span
+                    style={{
+                      display: "inline-block",
+                      transform:
+                        openSection[selectedGovUrl]?.includes(sectionName)
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                      transition: "transform 0.3s ease",
+                    }}
+                  >
+                    ▼
+                  </span>
+                </h5>
+                {openSection[selectedGovUrl]?.includes(sectionName) && (
+                  <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                    {items.map((item, index) => (
+                      <li key={index} style={{ marginBottom: "0.5rem" }}>
+                        <Link
+                          to={`/filter/${item.url}`}
+                          style={{ textDecoration: "none", color: "#333" }}
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )
           ))}
         </div>
       ) : (
