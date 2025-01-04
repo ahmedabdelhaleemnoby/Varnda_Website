@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Tabs, Tab } from "react-bootstrap";
 import api from "../../API/ApiLink";
 import { Link } from "react-router-dom";
 
@@ -7,6 +7,8 @@ export default function AllGovernorates() {
   const [allGov, setAllGov] = useState([]);
   const [mockDetails, setMockDetails] = useState({});
   const [selectedGovUrl, setSelectedGovUrl] = useState(null);
+  const [selectedTab, setSelectedTab] = useState("sale"); // Track selected tab (sale/rent)
+  const [filteredGovs, setFilteredGovs] = useState([]); // Filtered governorates based on the selected tab
   const [openSection, setOpenSection] = useState({}); // Tracks open sections for each governorate
 
   useEffect(() => {
@@ -14,28 +16,49 @@ export default function AllGovernorates() {
       try {
         const response = await api.get("/getAllGovernoratesForHomepage");
         const data = response.data.data;
+
         setAllGov(data);
 
-        // Build mockDetails dynamically
+        // Build mockDetails dynamically for both sale and rent
         const details = {};
         data.forEach((gov) => {
           details[gov.url] = {
-            "شقق": gov.apartments.map((apartment) => ({
-              name: apartment.filter_name,
-              url: apartment.url,
-            })),
-            "فيلات": gov.villas.map((villa) => ({
-              name: villa.filter_name,
-              url: villa.url,
-            })),
-            "عقار تجاري": gov.shops.map((shop) => ({
-              name: shop.filter_name,
-              url: shop.url,
-            })),
-            "كمبوندات": gov.compounds.map((compound) => ({
-              name: compound.filter_name,
-              url: compound.url,
-            })),
+            sale: {
+              "شقق": gov.sale.apartments.map((apartment) => ({
+                name: apartment.filter_name,
+                url: apartment.url,
+              })),
+              "فيلات": gov.sale.villas.map((apartment) => ({
+                name: apartment.filter_name,
+                url: apartment.url,
+              })),
+              "عقار تجاري": gov.sale.shops.map((apartment) => ({
+                name: apartment.filter_name,
+                url: apartment.url,
+              })),
+              "كمبوندات": gov.sale.compounds.map((apartment) => ({
+                name: apartment.filter_name,
+                url: apartment.url,
+              })),
+            },
+            rent: {
+              "شقق": gov.rent.apartments.map((apartment) => ({
+                name: apartment.filter_name,
+                url: apartment.url,
+              })),
+              "فيلات": gov.rent.villas.map((apartment) => ({
+                name: apartment.filter_name,
+                url: apartment.url,
+              })),
+              "عقار تجاري": gov.rent.shops.map((apartment) => ({
+                name: apartment.filter_name,
+                url: apartment.url,
+              })),
+              "كمبوندات": gov.rent.compounds.map((apartment) => ({
+                name: apartment.filter_name,
+                url: apartment.url,
+              })),
+            },
           };
         });
         setMockDetails(details);
@@ -43,9 +66,9 @@ export default function AllGovernorates() {
         if (data.length > 0) {
           const firstGovUrl = data[0].url;
           setSelectedGovUrl(firstGovUrl);
-          // Open all sections by default for the first governorate
+          // Open all sections by default for the first governorate in "sale" tab
           setOpenSection({
-            [firstGovUrl]: Object.keys(details[firstGovUrl]),
+            [firstGovUrl]: Object.keys(details[firstGovUrl]?.sale || {}),
           });
         }
       } catch (err) {
@@ -55,11 +78,23 @@ export default function AllGovernorates() {
     fetchAllGov();
   }, []);
 
+  // Filter governorates dynamically based on the selected tab
+  useEffect(() => {
+    const filtered = allGov.filter(
+      (gov) =>
+        gov[selectedTab].apartments.length > 0 ||
+        gov[selectedTab].villas.length > 0 ||
+        gov[selectedTab].shops.length > 0 ||
+        gov[selectedTab].compounds.length > 0
+    );
+    setFilteredGovs(filtered);
+  }, [allGov, selectedTab]);
+
   const handleSelect = (govUrl) => {
     setSelectedGovUrl((prev) => (prev === govUrl ? null : govUrl));
     setOpenSection((prev) => ({
       ...prev,
-      [govUrl]: Object.keys(mockDetails[govUrl] || {}), // Open all sections for the selected governorate
+      [govUrl]: Object.keys(mockDetails[govUrl]?.[selectedTab] || {}),
     }));
   };
 
@@ -75,13 +110,33 @@ export default function AllGovernorates() {
     });
   };
 
-  const selectedDetails = selectedGovUrl && mockDetails[selectedGovUrl];
+  const selectedDetails =
+    selectedGovUrl && mockDetails[selectedGovUrl]?.[selectedTab];
 
   return (
     <Container style={{ minHeight: "60vh", marginBottom: "2rem" }}>
       <h3 style={{ color: "#495057", marginBottom: "1rem" }}>
         تصفح المزيد من المدن و المناطق العقارية...
       </h3>
+      {/* Tabs for Sale and Rent */}
+      <Tabs
+        id="sale-rent-tabs"
+        activeKey={selectedTab}
+        onSelect={(tab) => {
+          setSelectedTab(tab);
+          if (selectedGovUrl) {
+            setOpenSection((prev) => ({
+              ...prev,
+              [selectedGovUrl]: Object.keys(mockDetails[selectedGovUrl]?.[tab] || {}),
+            }));
+          }
+        }}
+        className="mb-3"
+      >
+        <Tab eventKey="sale" title="بيع"></Tab>
+        <Tab eventKey="rent" title="إيجار"></Tab>
+      </Tabs>
+
       <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
         {/* Governorate Buttons */}
         <div
@@ -92,7 +147,7 @@ export default function AllGovernorates() {
             width: "100%",
           }}
         >
-          {allGov.map((gov) => (
+          {filteredGovs.map((gov) => (
             <Button
               key={gov.url}
               variant={selectedGovUrl === gov.url ? "primary" : "outline-primary"}
@@ -116,51 +171,52 @@ export default function AllGovernorates() {
             overflowX: "auto",
           }}
         >
-          {Object.entries(selectedDetails).map(([sectionName, items]) => (
-            items.length > 0 && ( // Only render sections with items
-              <div key={sectionName} style={{ minWidth: "250px" }}>
-                <h5
-                  style={{
-                    color: "#007bff",
-                    marginBottom: "1rem",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  onClick={() => toggleSection(selectedGovUrl, sectionName)}
-                >
-                  {sectionName}
-                  {/* Arrow */}
-                  <span
+          {Object.entries(selectedDetails).map(
+            ([sectionName, items]) =>
+              items.length > 0 && ( // Only render sections with items
+                <div key={sectionName} style={{ minWidth: "250px" }}>
+                  <h5
                     style={{
-                      display: "inline-block",
-                      transform:
-                        openSection[selectedGovUrl]?.includes(sectionName)
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)",
-                      transition: "transform 0.3s ease",
+                      color: "#007bff",
+                      marginBottom: "1rem",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
                     }}
+                    onClick={() => toggleSection(selectedGovUrl, sectionName)}
                   >
-                    ▼
-                  </span>
-                </h5>
-                {openSection[selectedGovUrl]?.includes(sectionName) && (
-                  <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                    {items.map((item, index) => (
-                      <li key={index} style={{ marginBottom: "0.5rem" }}>
-                        <Link
-                          to={`/filter/${item.url}`}
-                          style={{ textDecoration: "none", color: "#333" }}
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            )
-          ))}
+                    {sectionName}
+                    {/* Arrow */}
+                    <span
+                      style={{
+                        display: "inline-block",
+                        transform:
+                          openSection[selectedGovUrl]?.includes(sectionName)
+                            ? "rotate(180deg)"
+                            : "rotate(0deg)",
+                        transition: "transform 0.3s ease",
+                      }}
+                    >
+                      ▼
+                    </span>
+                  </h5>
+                  {openSection[selectedGovUrl]?.includes(sectionName) && (
+                    <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                      {items.map((item, index) => (
+                        <li key={index} style={{ marginBottom: "0.5rem" }}>
+                          <Link
+                            to={`/filter/${item.url}`}
+                            style={{ textDecoration: "none", color: "#333" }}
+                          >
+                            {item.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )
+          )}
         </div>
       ) : (
         selectedGovUrl && (
