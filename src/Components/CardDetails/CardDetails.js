@@ -434,14 +434,14 @@ useEffect(() => {
                                   نوع الايجار
                                 </th>
                                 <th className="w-50 p-3 leftTablePart">
-                                  {propertyDetails.property.renting_type === 1
+                                  {propertyDetails.property.renting_type === "1"
                                     ? "شهرى"
-                                    : propertyDetails.property.renting_type === 3
+                                    : propertyDetails.property.renting_type === "3"
                                       ? "ربع سنوى"
-                                      : propertyDetails.property.renting_type === 6
+                                      : propertyDetails.property.renting_type === "6"
                                         ? "نصف سنوى"
                                         : propertyDetails.property.renting_type ===
-                                          12
+                                          "12"
                                           ? "سنوى"
                                           : ""}
                                 </th>
