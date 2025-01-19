@@ -35,7 +35,7 @@ export default function Header() {
   // const role = localStorage.getItem("role")
   const Logout = async () => {
     try {
-      const response = await api.post("/logout", {}, {
+      await api.post("/logout", {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
@@ -90,87 +90,85 @@ export default function Header() {
           </div>
           <Navbar.Toggle aria-controls="basic-navbar-nav" style={{background:'white'}}/>
           <Navbar.Collapse id="basic-navbar-nav" style={{
-            width: 'fit-content',
-            alignItems: 'end',
-            flexDirection: 'column'
-          }}>
-            <Nav>
-              <NavDropdown
-                title={
-                  <span>
-                    <FontAwesomeIcon icon={faUser} className="ms-2" />
-                    حسابى
-                  </span>
-                }
-                id="navbarScrollingDropdown"
-              >
+  width: 'fit-content',
+  alignItems: 'end',
+  flexDirection: 'column'
+}}>
+  <Nav>
+    {/* Add Buy and Rent links */}
+    <Nav.Link as={Link} to="/buy" style={{ color: 'white' }}>
+      <FontAwesomeIcon icon={faBuilding} className="ms-2" />
+      شراء
+    </Nav.Link>
+    <Nav.Link as={Link} to="/rent" style={{ color: 'white' }}>
+      <FontAwesomeIcon icon={faBuilding} className="ms-2" />
+      إيجار
+    </Nav.Link>
 
-                {!token && <>
-                  <NavDropdown.Item as={Link} to="/login" className="text-end">
-                    <FontAwesomeIcon icon={faSignInAlt} className="ms-2" />
-                    تسجيل الدخول
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/signup" className="text-end">
-                    <FontAwesomeIcon icon={faUserPlus} className="ms-2" />
-                    تسجيل الحساب
-                  </NavDropdown.Item>
-                </>}
-                <NavDropdown.Item as={Link} to="/favorite-properties" className="text-end">
-                  <FontAwesomeIcon icon={faHeart} className="ms-2" />
-                  المفضلة
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/myproperties" className="text-end">
-                  <FontAwesomeIcon icon={faBuilding} className="ms-2" />
-                  تصفح عقاراتك
-                </NavDropdown.Item>
-{/*  */}
-                <NavDropdown.Item as={Link} to="/governorates" className="text-end">
-                  <FontAwesomeIcon icon={faMapMarkedAlt} className="ms-2" />
-                  المحافظات
-                  </NavDropdown.Item>
-{/*  */}
+    <NavDropdown
+      title={
+        <span>
+          <FontAwesomeIcon icon={faUser} className="ms-2" />
+          حسابى
+        </span>
+      }
+      id="navbarScrollingDropdown"
+    >
+      {!token && <>
+        <NavDropdown.Item as={Link} to="/login" className="text-end">
+          <FontAwesomeIcon icon={faSignInAlt} className="ms-2" />
+          تسجيل الدخول
+        </NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="/signup" className="text-end">
+          <FontAwesomeIcon icon={faUserPlus} className="ms-2" />
+          تسجيل الحساب
+        </NavDropdown.Item>
+      </>}
+      <NavDropdown.Item as={Link} to="/favorite-properties" className="text-end">
+        <FontAwesomeIcon icon={faHeart} className="ms-2" />
+        المفضلة
+      </NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/myproperties" className="text-end">
+        <FontAwesomeIcon icon={faBuilding} className="ms-2" />
+        تصفح عقاراتك
+      </NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/governorates" className="text-end">
+        <FontAwesomeIcon icon={faMapMarkedAlt} className="ms-2" />
+        المحافظات
+      </NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/myprofile" className="text-end" >
+        <FontAwesomeIcon icon={faCog} className="ms-2" />
+        الاعدادات
+      </NavDropdown.Item>
+      {role === "admin" && <NavDropdown.Item as={Link} to="/dashboard" className="text-end">
+        <FontAwesomeIcon icon={faTachometerAlt} className="ms-2" />
+        لوحه التحكم
+      </NavDropdown.Item>}
+      {token &&
+        <>
+          <NavDropdown.Divider />
+          <NavDropdown.Item className="text-end" onClick={Logout}>
+            <FontAwesomeIcon icon={faSignOutAlt} className="ms-2" />
+            تسجيل خروج
+          </NavDropdown.Item>
+        </>
+      }
+    </NavDropdown>
+    <Nav.Link as={Link} to="/submit-property" style={{ color: 'white' }} >
+      <FontAwesomeIcon icon={faPlus} className="ms-2" />
+      اضف عقار
+    </Nav.Link>
+    <Nav.Link as={Link} to="/blog" style={{ color: 'white' }}>
+      <FontAwesomeIcon icon={faFileAlt} className="ms-2" />
+      المدونة
+    </Nav.Link>
+    <Nav.Link as={Link} to="/projects" style={{ color: 'white' }}>
+      <FontAwesomeIcon icon={faCity} className="ms-2" />
+      المشروعات العقارية
+    </Nav.Link>
+  </Nav>
+</Navbar.Collapse>
 
-
-
-
-                <NavDropdown.Item as={Link} to="/myprofile" className="text-end" >
-                  <FontAwesomeIcon icon={faCog} className="ms-2" />
-                  الاعدادات
-                </NavDropdown.Item>
-
-                {role === "admin" && <NavDropdown.Item as={Link} to="/dashboard" className="text-end">
-                  <FontAwesomeIcon icon={faTachometerAlt} className="ms-2" />
-                  لوحه التحكم
-                </NavDropdown.Item>
-                }
-                {token &&
-                  <>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item className="text-end" onClick={Logout}>
-                      <FontAwesomeIcon icon={faSignOutAlt} className="ms-2" />
-                      تسجيل خروج
-                    </NavDropdown.Item>
-                  </>
-                }
-              </NavDropdown>
-              <Nav.Link as={Link} to="/submit-property"  style={{color: 'white'}} >
-                <FontAwesomeIcon icon={faPlus} className="ms-2" />
-                اضف عقار
-              </Nav.Link>
-              <Nav.Link as={Link} to="/blog"  style={{color: 'white'}}>
-                <FontAwesomeIcon icon={faFileAlt} className="ms-2" />
-                المدونة
-              </Nav.Link>
-
-{/*  */}
-              <Nav.Link as={Link} to="/projects"  style={{color: 'white'}}>
-                <FontAwesomeIcon icon={faCity} className="ms-2" />
-                المشروعات العقارية
-              </Nav.Link>
-{/*  */}
-
-            </Nav>
-          </Navbar.Collapse>
         </Container>
       </Navbar>
       <hr style={{ margin: "0px" }} />

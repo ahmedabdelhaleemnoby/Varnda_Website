@@ -8,6 +8,7 @@ import {
   faPinterestP,
   faTwitter,
   faFacebookF,
+  faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -19,6 +20,7 @@ export default function Footer() {
   };
 
   return (
+    <>
     <div className="footer py-5 mt-5">
       <Container fluid="md">
         <Row className="footer-row">
@@ -81,5 +83,36 @@ export default function Footer() {
         </div>
       </Container>
     </div>
+      {/* New Section */}
+      <div className="site-footer_bottom bg-black py-1">
+        <div className="container mx-auto text-center d-flex gap-4 flex-row justify-content-center items-center">
+          <div className="site-footer__whatsapp">
+            <a
+              href="https://wa.me/201147963593?text=مرحباً، أحتاج إلى مساعدة.في عمل ويب سايت"
+              className="text-success hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+            >
+              <FontAwesomeIcon icon={faWhatsapp} />Chat with us
+            </a>
+          </div>
+
+          <div className="text-white">
+            <p className="mb-0">
+              © Copyright 2025 by{" "}
+              <a
+                href="https://Gfoura.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Gfoura.com
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      </>
   );
 }
