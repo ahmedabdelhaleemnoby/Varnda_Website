@@ -18,19 +18,36 @@ export default function GovPage() {
   // API for get data to choose from it
   useEffect(() => {
     const fetchGov = async () => {
-      try {
-        setOverlay(true);
-        setLoading(true);
-        const response = await api.get(`/getAdsByGovernorate/${gov}`);
-        setData(response.data.data);
-      } catch (error) {
-        console.log(error);
-        if (error.response.data.status === 404) {
-          setNotFound(true);
+      if(gov !== 'buy' && gov !== 'rent' ) {
+        try {
+          setOverlay(true);
+          setLoading(true);
+          const response = await api.get(`/getAdsByGovernorate/${gov}`);
+          setData(response.data.data);
+        } catch (error) {
+          console.log(error);
+          if (error.response.data.status === 404) {
+            setNotFound(true);
+          }
+        } finally {
+          setOverlay(false);
+          setLoading(false);
         }
-      } finally {
-        setOverlay(false);
-        setLoading(false);
+      }else{
+        try {
+          setOverlay(true);
+          setLoading(true);
+          const response = await api.get(`/getTypeSearch/?type_search=${gov}`);
+          setData(response.data.data);
+        } catch (error) {
+          console.log(error);
+          if (error.response.data.status === 404) {
+            setNotFound(true);
+          }
+        } finally {
+          setOverlay(false);
+          setLoading(false);
+        }
       }
     };
     fetchGov();
