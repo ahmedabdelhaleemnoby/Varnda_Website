@@ -11,7 +11,7 @@ import CardPage from "../../../Components/Cards/CardPage.js";
 
 export default function CityPage() {
 
-  let { gov ,city} = useParams();
+  let { type, gov ,city} = useParams();
   const [data, setData] = useState([]);
   const [overlay, setOverlay] = useState(false);
   const [notFound, setNotFound] = useState(false);
@@ -23,7 +23,7 @@ export default function CityPage() {
       try {
         setOverlay(true)
         setLoading(true)
-        const response = await api.get(`/getAdsByCity/${city}`);
+        const response = await api.get(`/getAdsByCity/${city}?type_search=${type}`);
         setData(response.data.data)
       } catch (error) {
         console.log(error);
@@ -37,14 +37,14 @@ export default function CityPage() {
       }
     };
     fetchCity();
-  }, [city]);
+  }, [city ,type]);
 
   const currentUrl = window.location.href;
   // Set default SEO settings
   usePageSEO({
     title: data.meta_title|| "مدينة",
     description: data.meta_description || "",
-    canonical: `https://varnda.com/${gov}/${city}`,
+    canonical: `https://varnda.com/${type}/${gov}/${city}`,
     img: data.image?data.image:'',
     url: currentUrl,
   });

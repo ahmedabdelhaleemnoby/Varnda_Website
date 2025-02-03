@@ -10,7 +10,7 @@ import NotFoundPage from "../../NotFoundPage/NotFoundPage.js";
 import CardPage from "../../../Components/Cards/CardPage.js";
 
 export default function GovPage() {
-  let { gov } = useParams();
+  let { type, gov } = useParams();
   const [data, setData] = useState([]);
   const [overlay, setOverlay] = useState(false);
   const [notFound, setNotFound] = useState(false);
@@ -18,11 +18,11 @@ export default function GovPage() {
   // API for get data to choose from it
   useEffect(() => {
     const fetchGov = async () => {
-      if(gov !== 'buy' && gov !== 'rent' ) {
+      // if(gov !== 'buy' && gov !== 'rent' ) {
         try {
           setOverlay(true);
           setLoading(true);
-          const response = await api.get(`/getAdsByGovernorate/${gov}`);
+          const response = await api.get(`/getAdsByGovernorate/${gov}?type_search=${type}`);
           setData(response.data.data);
         } catch (error) {
           console.log(error);
@@ -33,32 +33,32 @@ export default function GovPage() {
           setOverlay(false);
           setLoading(false);
         }
-      }else{
-        try {
-          setOverlay(true);
-          setLoading(true);
-          const response = await api.get(`/getTypeSearch/?type_search=${gov}`);
-          setData(response.data.data);
-        } catch (error) {
-          console.log(error);
-          if (error.response.data.status === 404) {
-            setNotFound(true);
-          }
-        } finally {
-          setOverlay(false);
-          setLoading(false);
-        }
-      }
+      // }else{
+      //   try {
+      //     setOverlay(true);
+      //     setLoading(true);
+      //     const response = await api.get(`/getTypeSearch/?type_search=${type}`);
+      //     setData(response.data.data);
+      //   } catch (error) {
+      //     console.log(error);
+      //     if (error.response.data.status === 404) {
+      //       setNotFound(true);
+      //     }
+      //   } finally {
+      //     setOverlay(false);
+      //     setLoading(false);
+      //   }
+      // }
     };
     fetchGov();
-  }, [gov]);
+  }, [gov ,type]);
   
   const currentUrl = window.location.href;
   // Set default SEO settings
   usePageSEO({
     title: data.meta_title || "محافظة",
     description: data.meta_description || "",
-    canonical: `https://varnda.com/${gov}`,
+    canonical: `https://varnda.com/${type}/${gov}`,
     img: data.image?data.image:'',
     url: currentUrl,
   });

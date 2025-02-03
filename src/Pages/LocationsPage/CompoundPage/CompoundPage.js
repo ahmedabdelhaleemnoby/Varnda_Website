@@ -11,7 +11,7 @@ import CardPage from "../../../Components/Cards/CardPage.js";
 
 export default function CompoundPage() {
 
-  let { gov ,city ,compound} = useParams();
+  let { type, gov ,city ,compound} = useParams();
   const [data, setData] = useState([]);
   const [overlay, setOverlay] = useState(false);
   const [notFound, setNotFound] = useState(false);
@@ -23,7 +23,7 @@ export default function CompoundPage() {
       try {
         setOverlay(true)
         setLoading(true)
-        const response = await api.get(`/getAdsByCompound/${compound}`);
+        const response = await api.get(`/getAdsByCompound/${compound}?type_search=${type}`);
         setData(response.data.data)
       } catch (error) {
         console.log(error);
@@ -37,7 +37,7 @@ export default function CompoundPage() {
       }
     };
     fetchCity();
-  }, [compound]);
+  }, [compound ,type]);
 
 
   const currentUrl = window.location.href;
@@ -45,7 +45,7 @@ export default function CompoundPage() {
   usePageSEO({
     title: data.meta_title|| "مشروع عقارى",
     description: data.meta_description || "",
-    canonical: `https://varnda.com/${gov}/${city}/${compound}`,
+    canonical: `https://varnda.com/${type}/${gov}/${city}/${compound}`,
     img: data.image?data.image:'',
     url: currentUrl,
   });

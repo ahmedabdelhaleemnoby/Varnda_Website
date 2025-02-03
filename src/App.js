@@ -80,6 +80,7 @@ import GovsHome from "./Pages/GovsHome/GovsHome";
 import ProjectsHome from "./Pages/ProjectsHome/ProjectsHome";
 import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import GeneralPages from "./Pages/Dashboard/GeneralPages";
+import CountryPage from "./Pages/LocationsPage/CountryPage/CountryPage";
 
 function App() {
   return (
@@ -560,9 +561,10 @@ function App() {
         />
 
         {/* Locations Pages */}
-        <Route path="/:gov" element={<GovPage />} />
-        <Route path="/:gov/:city" element={<CityPage />} />
-        <Route path="/:gov/:city/:compound" element={<CompoundPage />} />
+        <Route path="/:type" element={<CountryPage />} />
+        <Route path="/:type/:gov" element={<GovPage />} />
+        <Route path="/:type/:gov/:city" element={<CityPage />} />
+        <Route path="/:type/:gov/:city/:compound" element={<CompoundPage />} />
         {/*  */}
 
         {/* 404 Page */}
